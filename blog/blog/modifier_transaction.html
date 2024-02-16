@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Levanti Finance - Modifier la transaction</title>
+    <!-- Ajoutez vos liens CSS et JavaScript nécessaires -->
+</head>
+<body>
+
+<h2>Modifier la transaction</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer les modifications</button>
+</form>
+
+</body>
+</html>

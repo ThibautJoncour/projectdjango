@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion de la règle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Couleur de fond */
+            color: #333; /* Couleur du texte */
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 80%; /* Largeur du conteneur principal */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* Couleur de fond de la zone principale */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+        }
+
+        h1 {
+            color: #00B5E2; /* Couleur bleue pour le titre */
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        select {
+            padding: 8px;
+            margin-right: 10px;
+            width: 200px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            padding: 8px 20px;
+            background-color: #00B5E2; /* Couleur bleue pour le bouton */
+            color: #fff; /* Couleur du texte */
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #00B5E2; /* Couleur bleue pour l'en-tête du tableau */
+            color: #fff; /* Couleur du texte de l'en-tête du tableau */
+        }
+
+        th:first-child, td:first-child {
+            border-left: none;
+        }
+
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 150px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-y: auto;
+        }
+
+        .sidebar-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .sidebar-item a {
+            color: #01080a;
+            text-decoration: none;
+        }
+
+        .sidebar-item a:hover {
+            text-decoration: underline;
+        }
+          
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Gestion de la règle</h1>
+
+        <!-- Formulaire pour ajouter une ligne -->
+        <form action="{% url 'add_row_rules' %}" method="post">
+            {% csrf_token %}
+            <label for="new-row-rule">Ajouter une ligne:</label>
+            <input type="text" id="new-row-rule" name="new_row_rule" placeholder="Rule">
+            <input type="submit" value="Ajouter Ligne">
+        </form>
+
+        <!-- Formulaire pour modifier une ligne -->
+        <form action="{% url 'modify_row_rules' %}" method="post">
+            {% csrf_token %}
+            <label for="modify-row-rule">Modifier une ligne:</label>
+            <input type="text" id="modify-row-rule" name="modify_row_rule" placeholder="Rule">
+            <select id="modify-row-column-dropdown" name="modify_row_column">
+                {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" id="modify-row-value" name="modify_row_value" placeholder="New Value">
+            <input type="submit" value="Modifier Ligne">
+        </form>
+
+        <!-- Affichage du DataFrame -->
+        <h3>Aperçu des données :</h3>
+        <div>{{ data | safe }}</div>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <a href="{% url 'dashboard2' %}">Voir la règle et la condition</a>
+        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'dashboard' %}">Gérer la condition</a>
+        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'index' %}">Gérer la règle</a>
+        </div>
+        <div class="sidebar-item">
+        <a href="{% url 'view_transaction' %}">Historique transaction</a>
+      </div>
+    </div>
+
+</body>
+</html>
